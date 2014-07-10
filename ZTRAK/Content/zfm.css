@@ -1,0 +1,838 @@
+﻿/*!
+ * Bootstrap v3.0.2 customizations for ZFM  by Innovative Systems
+ * Copyright 2013 Innovative Systems, Inc.
+ * Licensed to Zimmer Fegan & Maloney
+ *
+ 
+ */
+
+@font-face {
+    font-family: 'robotoregular';
+    src: url('/fonts/Roboto-Regular-webfont.eot');
+    src: url('/fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/Roboto-Regular-webfont.woff') format('woff'),
+         url('/fonts/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('/fonts/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'robotobold';
+    src: url('/fonts/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/Roboto-Bold-webfont.woff') format('woff'),
+         url('/fonts/Roboto-Bold-webfont.ttf') format('truetype');
+    src: url('/fonts/Roboto-Bold-webfont.eot'),
+         url('/fonts/Roboto-Bold-webfont.svg#robotobold') format('svg');
+    font-weight: bold;
+   
+}
+
+@font-face {
+    font-family: 'open_sansregular';
+    src: url('/fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype');
+    src: url('/fonts/OpenSans-Regular-webfont.eot'),
+         url('/fonts/OpenSans-Regular-webfont.woff') format('woff'),
+         url('/fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
+         url('/fonts/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'open_sansbold';
+    src: url('/fonts/OpenSans-Bold-webfont.eot');
+    src: url('/fonts/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/OpenSans-Bold-webfont.woff') format('woff'),
+         url('/fonts/OpenSans-Bold-webfont.ttf') format('truetype'),
+         url('/fonts/OpenSans-Bold-webfont.svg#open_sansbold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+
+@media (orientation:landscape) {
+  
+	/*.container_selector {
+	min-height: 555px;*/
+
+	
+
+}
+@media (orientation:portrait) {
+  
+	/*.container_selector {
+	min-height: 360px;*/
+ 
+}
+
+.user-list-title {
+
+     
+   
+}
+
+.MapPushpinBase {
+
+        font-family: robotoregular;
+}
+
+.LogoContainer {
+
+    display: none;
+
+}
+
+.Infobox2{
+
+    left:auto !important;
+    width: auto !important;
+    border-radius: 10px;
+}
+
+.infobox-title {
+
+    font-family: robotobold;
+    font-size: medium;
+
+}
+
+.infobox-info {
+
+    font-family: open_sansregular;
+    font-size: medium;
+
+
+}
+
+table#table1 {
+    
+    display: inline-table;
+    text-align:center; 
+    margin-left:auto; 
+    margin-right:auto; 
+    width:100%;
+    
+    
+  }
+th {
+
+    font-family: open_sansregular;
+    font-size: medium;
+    text-align: center;
+    font-weight: lighter;
+    line-height: 1em;
+
+    
+}
+td {
+
+    font-family:  robotoregular;
+    text-align: center;
+     max-width: 90px;
+    overflow:   hidden;
+    text-overflow:ellipsis;
+    white-space: normal;
+    padding-bottom: 3px;
+  
+}
+
+
+.field-header {
+
+    color: orange;
+
+}
+
+.field-label {
+
+    
+    font-family: open_sansregular;
+    font-size: medium;
+    display: inline-block;
+    
+
+}
+
+/*Style the input for the file upload*/
+label input[type="file"] {
+	position: fixed;
+	top: -1000px;
+}
+
+#uploadLabel {
+	   
+	  
+	  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+	  border: 2px solid #242424;
+	  border-radius: 3px;
+	  padding: 5px 8px;
+	  outline: none;
+	  white-space: nowrap;
+	  -webkit-user-select: none;
+	  text-overflow: ellipsis;
+	  cursor: pointer;
+	  font-size: medium;
+	  font-family:robotoregular;     
+      margin-top: 8px;
+      
+
+}
+
+.btn:focus {
+	outline:  none;
+   
+	outline-offset: 0;
+}
+
+.mybar {
+  display:table;
+  width: 100%; 
+  padding-right: 60px; 
+  padding-left: 30px;
+}
+
+.mybar > .form-control {
+  display: table-cell;
+  margin-left:-3px;
+}
+
+.mybar > span {
+  display: table-cell;
+  width:1%;
+  padding:0 3px;
+  
+}
+
+.priority-status {
+
+	font-family:robotoregular;
+	font-weight: bold;
+	font-size: large;
+	color: darkorange;
+	line-height: 2em;
+
+}
+
+#zfmNotes {
+
+	background-color: lightcyan;
+	max-width: 100%;
+	width: 100%;
+	height: 100%;
+	max-height: 100%;
+	font-size: large;
+	padding-left:3px;
+	font-family:robotoregular;
+	white-space:pre-wrap;
+	overflow:visible;
+   
+}
+
+
+.bootbox-input-text {
+
+	font-size: large;
+}
+
+.inputEdit {
+
+	height: 1.9em;
+	font-size: large;
+
+}
+
+.blink-slow {
+
+	 -webkit-animation: blinker 5s steps(5, start) infinite;
+	 -moz-animation:    blinker 5s steps(5, start) infinite;
+	 -o-animation:      blinker 5s steps(5, start) infinite; 
+	 animation:         blinker 5s steps(5, start) infinite;
+   
+}
+
+.blink-now {
+
+	 -webkit-animation: blinker 2s steps(5, start) infinite;
+	 -moz-animation:    blinker 2s steps(5, start) infinite;
+	 -o-animation:      blinker 2s steps(5, start) infinite; 
+	 animation:         blinker 2s steps(5, start) infinite;
+   
+}
+
+@-moz-keyframes blinker {  
+
+	0% { opacity: 1.0; }
+	50% { opacity: 0.0; }
+	100% { opacity: 1.0; }
+
+}
+
+@-webkit-keyframes blinker {  
+
+	0% { opacity: 1.0; }
+	50% { opacity: 0.0; }
+	100% { opacity: 1.0; }
+
+}
+
+@keyframes blinker {  
+
+	0% { opacity: 1.0; }
+	50% { opacity: 0.0; }
+	100% { opacity: 1.0; }
+
+}
+
+@media (max-width: 979px) {
+  .navbar-fixed-top,
+  .navbar-fixed-bottom {
+	  position: fixed;
+	  margin-left: 0;
+	  margin-right: 0;
+  }
+}
+
+.nav > li > a {
+
+	margin-top: 4px;
+}
+
+.btn-link {
+ 
+	   color: #f6f3f3;
+	  
+ }
+
+.btn-link:hover, .btn-link:focus {
+	color: white;
+	text-decoration: none;
+	background-color: transparent;
+}
+
+.devider-line {
+
+  border-color: #e8edf3;
+  border-style:   solid none;
+  border-width: 1px;
+  margin-left: 1px;
+  margin-right: 1px;
+  height: 5px;
+  
+}
+
+.popover-title {
+
+	margin: 0;
+	padding: 8px 14px;
+	font-family:robotoregular;
+	font-size: medium;
+	font-weight: normal;
+	color: darkblue;
+	line-height: 18px;
+	border-bottom: 1px solid #ebebeb;
+	border-radius: 5px 5px 0 0;
+   background-color: #ebebeb;
+  
+
+}
+
+.popover-content {
+
+	padding: 9px 14px;
+	font-family:robotoregular;
+	font-size: medium;
+	background-color: white;
+
+}
+
+.bottom.popover {
+	margin-top: 12px;
+}
+
+
+.barstats {
+
+font-family:robotoregular;
+color: white;
+font-size: small;
+background-color:  transparent;
+margin-left: 5px;
+margin-top: 1px;
+margin-right: 1px;
+border-radius: 20px;
+padding: 0;
+
+}
+
+.noBulletsList 
+{
+	list-style-type: none;
+}
+
+
+
+.itemHolderList {
+
+-webkit-padding-start: 0;
+padding-left: 0;
+list-style-type: none;
+
+}
+
+.deletedItem {
+
+visibility: collapse;
+
+}
+
+
+.zfm-input {
+
+background-color: lightcyan;
+max-width: 100%;
+width: 100%;
+
+}
+
+.zfm-input2 {
+
+background-color: lightcyan;
+max-width: 100%;
+width: 100%;
+height: 2em;
+font-size: large;
+padding-left:3px;
+
+}
+
+
+
+.list-group-item {
+
+		/*Used as a spacer*/
+  
+}
+
+.center-text{
+
+	text-align:center;
+}
+
+.pickup-item-wht-bg {
+
+	background-image: none;
+	background-color: white;
+	margin-left: 1px;
+	margin-right: 1px;
+}
+
+.pickup-item-blue-bg {
+
+	background-image: none;
+	background-color: #f6f3f3;
+	margin-left: 1px;
+	margin-right: 1px;
+}
+
+.pickup-item-headers {
+
+ font-family: Helvetica,Arial,sans-serif;
+ font-size: large;
+ color: #f6f3f3;
+ font-weight: bold;
+
+}
+
+
+ 
+.pickup-item-headers-2 {
+
+ font-family: robotoregular;  
+ font-size: large;
+ color: #000000;
+ line-height:1.3em;
+  
+}
+
+
+.notesLabel{
+
+ font-family: robotoregular;  
+ font-size: large;
+ color: #137baf;
+ line-height:1.7em;
+ font-weight: bold;
+  
+}
+
+
+.pickup-item-loc-name {
+
+ font-family: robotoregular;
+ font-size: large;
+  color: #151520;
+ font-weight: bold;
+ text-align: center;
+ display: block;
+ text-overflow:ellipsis;
+ white-space: nowrap;
+ overflow: hidden;
+
+}
+
+.pickup-item-notes {
+
+ font-family: Helvetica,Arial,sans-serif;
+ font-size: medium;
+ color: olivedrab;
+ font-weight: bold;
+
+}
+
+.pickup-item-list {
+
+ font-family: Helvetica,Arial,sans-serif;
+ font-size: large;
+ color: #222020;
+
+ text-decoration:none;
+  
+
+}
+
+
+.pickupItemPhoto {
+
+ font-family: Helvetica,Arial,sans-serif;
+ font-size: large;
+ line-height: 1.5;
+ text-decoration:none;
+  
+
+}
+
+
+.pickupItemBackgroundColor {
+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #fff), color-stop(1.00, #cecece));
+	background: -webkit-linear-gradient(#fff, #cecece);
+	background: -moz-linear-gradient(#fff, #cecece);
+	background: -o-linear-gradient(#fff, #cecece);
+	background: -ms-linear-gradient(#fff, #cecece);
+	background: linear-gradient(#fff, #cecece);
+
+
+
+}
+
+
+
+.pickupItemPhotoQTY {
+
+ font-family: Helvetica,Arial,sans-serif;
+ font-size: medium;
+ line-height: 1.5;
+ text-decoration:none;
+ font-weight: bold; 
+
+}
+
+.photoScale {
+
+	 max-width:100%; 
+	 
+	 max-height:100%;
+
+}
+
+/*[title^=http] {
+	font-family: Helvetica,Arial,sans-serif;
+	font-size: medium;
+	color: #e8edf3;
+	line-height: 1.5;
+	text-decoration: none;
+}*/
+
+
+.cali {
+
+
+	background: -moz-linear-gradient(top,  rgba(30,87,153,0) 0%, rgba(30,87,153,0.8) 15%, rgba(30,87,153,1) 19%, rgba(30,87,153,1) 20%, rgba(17,117,216,1) 50%, rgba(6,86,174,1) 81%, rgba(4,82,168,0.94) 85%, rgba(0,71,153,0.62) 96%, rgba(0,71,153,0.5) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(30,87,153,0)), color-stop(15%,rgba(30,87,153,0.8)), color-stop(19%,rgba(30,87,153,1)), color-stop(20%,rgba(30,87,153,1)), color-stop(50%,rgba(17,117,216,1)), color-stop(81%,rgba(6,86,174,1)), color-stop(85%,rgba(4,82,168,0.94)), color-stop(96%,rgba(0,71,153,0.62)), color-stop(100%,rgba(0,71,153,0.5))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(30,87,153,0) 0%,rgba(30,87,153,0.8) 15%,rgba(30,87,153,1) 19%,rgba(30,87,153,1) 20%,rgba(17,117,216,1) 50%,rgba(6,86,174,1) 81%,rgba(4,82,168,0.94) 85%,rgba(0,71,153,0.62) 96%,rgba(0,71,153,0.5) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(30,87,153,0) 0%,rgba(30,87,153,0.8) 15%,rgba(30,87,153,1) 19%,rgba(30,87,153,1) 20%,rgba(17,117,216,1) 50%,rgba(6,86,174,1) 81%,rgba(4,82,168,0.94) 85%,rgba(0,71,153,0.62) 96%,rgba(0,71,153,0.5) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(30,87,153,0) 0%,rgba(30,87,153,0.8) 15%,rgba(30,87,153,1) 19%,rgba(30,87,153,1) 20%,rgba(17,117,216,1) 50%,rgba(6,86,174,1) 81%,rgba(4,82,168,0.94) 85%,rgba(0,71,153,0.62) 96%,rgba(0,71,153,0.5) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(30,87,153,0) 0%,rgba(30,87,153,0.8) 15%,rgba(30,87,153,1) 19%,rgba(30,87,153,1) 20%,rgba(17,117,216,1) 50%,rgba(6,86,174,1) 81%,rgba(4,82,168,0.94) 85%,rgba(0,71,153,0.62) 96%,rgba(0,71,153,0.5) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e5799', endColorstr='#80004799',GradientType=0 ); /* IE6-9 */
+
+
+}
+
+
+.cali2 {
+
+	font-family: robotoregular;
+	margin-left: 10px; 
+	margin-right: 10px;
+	line-height: 2em;
+	}
+
+.CoolBackground {
+
+	background:
+	linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+	linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+	linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+	linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+	linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+	linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+	background-color: #131313;
+	background-size: 20px 20px;
+	
+
+}
+
+.PhotoNotAvailable {
+
+
+background: rgb(252,234,212); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(252,234,212,1) 2%, rgba(252,234,212,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,rgba(252,234,212,1)), color-stop(100%,rgba(252,234,212,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(252,234,212,1) 2%,rgba(252,234,212,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(252,234,212,1) 2%,rgba(252,234,212,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(252,234,212,1) 2%,rgba(252,234,212,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(252,234,212,1) 2%,rgba(252,234,212,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcead4', endColorstr='#fcead4',GradientType=0 ); /* IE6-9 */
+
+
+}
+
+
+.PhotoAvailable {
+
+
+background: rgb(255,197,120); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(255,197,120,1) 0%, rgba(251,157,35,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,197,120,1)), color-stop(100%,rgba(251,157,35,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(255,197,120,1) 0%,rgba(251,157,35,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(255,197,120,1) 0%,rgba(251,157,35,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(255,197,120,1) 0%,rgba(251,157,35,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(255,197,120,1) 0%,rgba(251,157,35,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc578', endColorstr='#fb9d23',GradientType=0 ); /* IE6-9 */
+
+   
+	
+}
+
+
+.zfm-display-photo {
+
+	
+ font-family: robotoregular;  
+ font-size: large;
+ color: #000000;
+	text-align: left;
+	
+	 text-decoration:none!important;
+	 cursor: pointer;
+
+	 background:none!important;
+	 border:none;
+     padding-top: 5px; 
+	 //padding:0!important;
+	/*border is optional*/
+	 /*border-bottom:1px solid #444;*/ 
+
+}
+
+
+/*  Using the next three classes to control how Items are displayed when they have a picture available */
+
+.statusPriority {
+
+	color: red;
+
+}
+
+.location-name-background {
+
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #fff), color-stop(1.00, #ababab));
+background: -webkit-linear-gradient(#fff, #ababab);
+background: -moz-linear-gradient(#fff, #ababab);
+background: -o-linear-gradient(#fff, #ababab);
+background: -ms-linear-gradient(#fff, #ababab);
+background: linear-gradient(#fff, #ababab);
+line-height: 1.25em ;
+font-family:  robotoregular;
+font-size: large;
+display: block;
+text-align: left;
+font-weight: bold;
+width: 100%;
+max-width: 100%;
+padding-left: 0;
+}
+
+.destination-name-background {
+	
+background:  url(img/blue-bg-zfm.png) no-repeat center left;
+background-size: 100% 100%;
+width: 100%;
+line-height: 1.25em ;
+font-family:  robotoregular;
+font-size: large;
+display: block;
+text-align: left;
+font-weight: bold;
+width: 100%;
+max-width: 100%;
+padding-left: 0;
+color: white;
+
+}
+
+
+.pickup-item-headers-4 {
+
+ font-family: Helvetica,Arial,sans-serif;
+ font-size: medium;
+ color: #6f6767;
+ font-weight: bold;
+
+}
+
+
+
+.pickup-item-headers-5 {
+
+ font-family: Helvetica,Arial,sans-serif;
+ font-size: medium;
+ color: #6f6767;
+ 
+
+}
+
+.pickup-item-style {
+
+	border: 1px solid 		#456f9a /*{b-bar-border}*/;
+	background: 			#5e87b0 /*{b-bar-background-color}*/;
+	
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: white;
+  
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #000000;
+  background-color: transparent;
+}
+
+.navbar-inverse .navbar-brand {
+	 
+	color: white;
+	 
+}
+
+
+.btn {
+	
+	font-size: 19px;
+   
+	}
+
+
+.pickup-item-selected {
+
+	background: #bfd255; /* Old browsers */
+	background: -moz-linear-gradient(top,  #bfd255 0%, #8eb92a 50%, #72aa00 51%, #9ecb2d 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bfd255), color-stop(50%,#8eb92a), color-stop(51%,#72aa00), color-stop(100%,#9ecb2d)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #bfd255 0%,#8eb92a 50%,#72aa00 51%,#9ecb2d 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #bfd255 0%,#8eb92a 50%,#72aa00 51%,#9ecb2d 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #bfd255 0%,#8eb92a 50%,#72aa00 51%,#9ecb2d 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #bfd255 0%,#8eb92a 50%,#72aa00 51%,#9ecb2d 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfd255', endColorstr='#9ecb2d',GradientType=0 ); /* IE6-9 */
+
+}
+
+
+.navbar-inverse {
+  
+background:  url(img/blue-bg-zfm.png) no-repeat center left;
+background-size: 120% 120%;
+width: 100%;
+height: auto;
+height: auto !important;
+
+}
+
+
+/*This section controls the layout problems with botstrap css with the different screen sizes*/
+
+
+
+@media (min-width: 1200px) {
+	.container {
+		width: auto;
+	  
+	}
+
+	.col-lg-offset-1 {
+		margin-left: 1px;
+	}
+}
+
+@media (min-width: 992px) {
+	.container {
+		width: auto;
+	   
+	}
+	   
+}
+
+
+
+@media (min-width: 768px) {
+
+	.container {
+		
+		width: auto;
+	}
+
+  
+
+}
+
+@media (max-width: 767px) {
+	
+	/* Needed by Iphone and smaller devices - controls the  Update icon's margin*/
+	.header-info{
+
+		margin-left: 15px;
+		
+	}
+
+}
+
+
+@media (max-width: 420px) {
+
+	 /* Make rooms for bages in scmall screens  */ 
+		
+	.badge {
+
+	color: darkblue;
+	background-color:  beige;
+	margin-left: 5px;
+	margin-top: 1px;
+	font-size: 14px;
+
+	}
+}
+

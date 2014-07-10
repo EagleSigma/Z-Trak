@@ -1,0 +1,84 @@
+﻿@{
+    if (Request.IsAuthenticated)
+    {
+        ViewBag.Title = "Home Page -";
+    }
+}
+
+
+<div style="padding: 0 15px">
+
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+
+            @if (Request.IsAuthenticated)
+            {
+                <h3 class="text-center"> Welcome @ViewBag.FirstName @ViewBag.LastName!</h3>
+            }
+            else
+            {
+                <h3 class="text-center"> Welcome to Zimmer Fegan & Maloney</h3>
+            }
+
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Existing User</h3>
+                </div>
+                <div class="panel-body">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <a class="btn btn-primary" href="javascript: logUserOut();">Logout &raquo;</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary" href="javascript:document.location.href ='/Account/Login'">Login &raquo;</a>
+                    }
+
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">New User</h3>
+                </div>
+                <div class="panel-body">
+                    <a class="btn btn-primary" href="javascript:document.location.href = '/Account/Register'">Register & Login &raquo;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Technical Support</h3>
+                </div>
+                <div class="panel-body">                  
+                    
+                    <a class="btn btn-primary" href="mailto:ztrak@outlook.com?subject=Z-TRAK Technical Support">Technical Support &raquo;</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Index.js"></script>
+}

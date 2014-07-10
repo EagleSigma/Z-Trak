@@ -1,0 +1,3 @@
+﻿To extend user login properties:
+http://blogs.msdn.com/b/webdev/archive/2013/10/16/customizing-profile-information-in-asp-net-identity-in-vs-2013-templates.aspx
+

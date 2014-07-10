@@ -1,0 +1,432 @@
+﻿@{
+
+    if (Request.IsAuthenticated && Request.Url.ToString().ToLower().Contains("pickup"))
+    {
+
+        ViewBag.Background = "CoolBackground";
+
+
+    }
+    else
+    {
+
+        ViewBag.Background = "NA";
+
+    }
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    @*Description and prevent ZOOM in iPad or iPhone*@
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title ZFM-Trak </title>
+    <meta name="ZFM Trak" content="Application used to track courier activity" />
+    <!-- Set viewport. -->
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable:no;">
+    <!-- Disable phone number detection. -->
+    <meta name="format-detection" content="telephone=no">
+    <!-- Make the status bar black with white text. -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="Zimmer Fegan & Maloney www.z-trak.com">
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- #region iOS tags -->
+    @if (Request.UserAgent.ToLower().Contains("safari"))
+    {
+
+           <!-- Run in full-screen mode. -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <!-- Customize home screen title. -->
+        <meta name="apple-mobile-web-app-title" content="ZFM">
+
+        <!-- Disable phone number detection. -->
+        <meta name="format-detection" content="telephone=no">
+                
+        <!-- Icons -->
+
+        <!-- iOS 7 iPad (retina) -->
+        <link href="/Content/img/apple-touch-icon-152x152.png"
+              sizes="152x152"
+              rel="apple-touch-icon">
+
+        <!-- iOS 6 iPad (retina) -->
+        <link href="/Content/img/apple-touch-icon-144x144.png"
+              sizes="144x144"
+              rel="apple-touch-icon">
+
+        <!-- iOS 7 iPhone (retina) -->
+        <link href="/Content/img/apple-touch-icon-120x120.png"
+              sizes="120x120"
+              rel="apple-touch-icon">
+
+        <!-- iOS 6 iPhone (retina) -->
+        <link href="/Content/img/apple-touch-icon-114x114.png"
+              sizes="114x114"
+              rel="apple-touch-icon">
+
+        <!-- iOS 7 iPad -->
+        <link href="/Content/img/apple-touch-icon-76x76.png"
+              sizes="76x76"
+              rel="apple-touch-icon">
+
+        <!-- iOS 6 iPad -->
+        <link href="/Content/img/apple-touch-icon-72x72.png"
+              sizes="72x72"
+              rel="apple-touch-icon">
+
+        <!-- iOS 6 iPhone -->
+        <link href="/Content/img/apple-touch-icon-57x57.png"
+              sizes="57x57"
+              rel="apple-touch-icon">
+
+
+        <!-- Startup images -->
+
+        <!-- iOS 6 & 7 iPad (retina, portrait) -->
+        <link href="/Content/img/apple-touch-startup-image-1536x2008.png"
+              media="(device-width: 768px) and (device-height: 1024px)
+                 and (orientation: portrait)
+                 and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+
+        <!-- iOS 6 & 7 iPad (retina, landscape) -->
+        <link href="/Content/img/apple-touch-startup-image-1496x2048.png"
+              media="(device-width: 768px) and (device-height: 1024px)
+                 and (orientation: landscape)
+                 and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+
+        <!-- iOS 6 iPad (portrait) -->
+        <link href="/Content/img/apple-touch-startup-image-768x1004.png"
+              media="(device-width: 768px) and (device-height: 1024px)
+                 and (orientation: portrait)
+                 and (-webkit-device-pixel-ratio: 1)"
+              rel="apple-touch-startup-image">
+
+        <!-- iOS 6 iPad (landscape) -->
+        <link href="/Content/img/apple-touch-startup-image-748x1024.png"
+              media="(device-width: 768px) and (device-height: 1024px)
+                 and (orientation: landscape)
+                 and (-webkit-device-pixel-ratio: 1)"
+              rel="apple-touch-startup-image">
+
+        <!-- iOS 6 & 7 iPhone 5 -->
+        <link href="/Content/img/apple-touch-startup-image-640x1096.png"
+              media="(device-width: 320px) and (device-height: 568px)
+                 and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+
+        <!-- iOS 6 & 7 iPhone (retina) -->
+        <link href="/Content/img/apple-touch-startup-image-640x920.png"
+              media="(device-width: 320px) and (device-height: 480px)
+                 and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+
+        <!-- iOS 6 iPhone -->
+        <link href="/Content/img/apple-touch-startup-image-320x460.png"
+              media="(device-width: 320px) and (device-height: 480px)
+                 and (-webkit-device-pixel-ratio: 1)"
+              rel="apple-touch-startup-image">
+
+
+    }
+    <!-- #endregion -->
+
+</head>
+<body class="@ViewBag.Background appBody">
+
+    @{
+        // If User is authenticated use the custom navigation bar  otherwise keep the standard
+        //
+        if (Request.IsAuthenticated && Request.Url.ToString().ToLower().Contains("location"))
+        {
+            @*Location NavBar *@
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;">
+                <div class="container">
+
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapsible">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        @*BRAND AREA*@
+                        <a id="zfmGetPickups" type="button" class="cleanButton btn btn-default navbar-brand btn-link" href="javascript:document.location.href ='/Pickup'" data-toggle="tooltip" title="Return To Pickup Manager">
+
+                            <i id="pullPickups" class="fa fa-refresh fa-arrow-left" style="line-height: 0.5em; font-size: 2em;"></i>
+
+                            @*<i id="pullPickups" class="fa fa-refresh fa-lg" style="line-height: 0.5em; font-size: 2em;"></i>*@
+                        </a>
+
+                        @*ICONS ON TOP  OF THE BAR - LEFT SIDE*@
+                        <div id="statsContainer" class="navbar-form navbar-left" style="margin: 8px 0 0; padding: 0; border: none; border-style:none; box-shadow: none;">
+
+
+                        </div>
+                    </div>
+
+                    @*ICONS ON MENU - RIGHT SIDE*@
+                    <div class="navbar-collapse collapse" id="navbar-collapsible" style="border-color: darkgray transparent transparent; height: auto; box-shadow: none;">
+                        <div class="navbar-form navbar-right btn-group" style="margin: 0px; padding: 0px; border: currentColor; border-image: none; box-shadow: none; ">
+
+                            <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="View Pickups on Map" href="javascript:document.location.href ='/Pickup'" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                <i class="fa fa-lg fa-fw fa-map-marker"></i>
+                            </a>
+
+
+                            <a id="userName" class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="Logout @ViewBag.FirstName @ViewBag.LastName" href="javascript: logUserOut();" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                <i class="fa fa-lg fa-fw fa-power-off"></i>
+                            </a>
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                            @Html.AntiForgeryToken()
+
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+
+        }
+
+        if (Request.IsAuthenticated && Request.Url.ToString().ToLower().Contains("pickup") && !Request.Url.ToString().ToLower().Contains("location"))
+        {
+            @*Pickup NavBar *@
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;">
+                <div class="container">
+
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapsible">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        @*BRAND AREA*@
+                        <a id="zfmGetPickups" type="button" class="cleanButton btn btn-default navbar-brand btn-link" href="javascript: getPickups();" data-toggle="tooltip" title="Update Pickup List">
+
+                            <i id="pullPickups" class="fa fa-refresh fa-lg" style="line-height: 0.5em; font-size: 2em;"></i>
+
+                            @*<i id="pullPickups" class="fa fa-refresh fa-lg" style="line-height: 0.5em; font-size: 2em;"></i>*@
+                        </a>
+
+                        @*ICONS ON TOP  OF THE BAR - LEFT SIDE*@
+                        <div id="statsContainer" class="navbar-form navbar-left" style="margin: 8px 0 0; padding: 0; border: none; border-style:none; box-shadow: none;">
+
+                            @*INTERNET SPEED*@
+                            <button id="webspeedNB" type="button" class="btn btn-default btn-link info-menu barstats"
+                                    style="background: white; color: darkblue; line-height: 1em; padding-right: 5px; padding-bottom: 2px; padding-left: 4px; font-size: medium;"
+                                    data-container="#statsContainer" data-toggle="popover" data-placement="bottom"
+                                    data-title="INTERNET SPEED" data-animation="true" data-content="F = FAST, S3 = IE MEDIUM, S2 = MEDIUM, S1 = SLOW, NIC = NO INTERNET CONNECTION">
+                                <span id="webTransportType">?</span>
+                            </button>
+
+                            <button type="button" class="btn btn-default btn-link info-menu barstats"
+                                    style="background: white; color: darkblue; line-height: 1em; padding-right: 5px; padding-bottom: 2px; padding-left: 4px; font-size: medium; "
+                                    data-container="#statsContainer" data-toggle="popover" data-placement="bottom"
+                                    data-title="PICKUPS ACTIVE OR FOUND" data-animation="true" data-content="TOTAL NUMBER OF ACTIVE PICKUPS OR IF THE SEARCH FILTER IS ACTIVE THE NUMBER OF PICKUPS FOUND THAT MATCH THE USER CRITERIA.">
+                                <span id="numberOfPickups" data-bind="text : pickupCollection().length"></span>
+                            </button>
+
+                            <button type="button" class="btn btn-default btn-link info-menu barstats"
+                                    style="background: white; color: darkblue; line-height: 1em; padding-right: 5px; padding-bottom: 2px; padding-left: 4px; font-size: medium;"
+                                    data-container="#statsContainer" data-toggle="popover" data-placement="bottom"
+                                    data-title="LAST UPDATE" data-animation="true" data-content="ELAPSED TIME SINCE THE DATA WAS UPDATED. CLICK ON THE PICKUPS UPDATE BUTTON TO RETRIEVE THE LATEST DATA.">
+                                <span id="timeElapsed">?</span>
+                            </button>
+
+                            <button type="button" class="btn btn-default barstats info-menu btn-link"
+                                    data-container="#statsContainer" data-toggle="popover" data-placement="bottom"
+                                    data-title="VIEW UPDATES" data-animation="true" data-content="VIEW ALL UPDATES IN REALTIME. BEST PERFORMANCE WHEN INTERNET SPEED INDICATES FAST ACCESS.">
+                                <span id="updateViewer"><i class="fa fa-eye" style="font-size:1.3em"></i></span>
+                            </button>
+
+                            @*THIS WILL NOT SHOW IN SMALL SCREENS BUT WILL ON DESKTOP*@
+                            <button type="button" class="btn btn-default barstats info-menu btn-link hidden-xs"
+                                    data-container="#statsContainer" data-toggle="popover" data-placement="bottom"
+                                    data-title="SOUND ALERTS" data-animation="true" data-content="TRIGGER SOUND ALERT WHENEVER DATA UPDATES ARE DETECTED.">
+                                <span><i id="soundAlert" class="fa fa-volume-up" style="font-size:1.3em"></i></span>
+                            </button>
+
+                            @*SEARCH ICON*@
+                            <button type="button" class="btn btn-default barstats info-menu btn-link"
+                                    data-container="#statsContainer" data-toggle="popover" data-placement="bottom"
+                                    data-title="SEARCH ACTIVE" data-animation="true" data-content="THE SEARCH FILTER IS ACTIVE AND ONLY THOSE PICKUPS MATCHING THE CRITERIA WILL BE LISTED. CLICK ON THE OFF BUTTON NEXT TO SEARCH TO TURN THE SEARCH FILTER OFF.">
+                                <span><i id="searchSign" class="blink-slow fa  fa-search" style="font-size:1.3em"></i></span>
+                            </button>
+
+                        </div>
+                    </div>
+
+                    @*ICONS ON MENU - RIGHT SIDE*@
+                    <div class="navbar-collapse collapse" id="navbar-collapsible" style="border-color: darkgray transparent transparent; height: auto; box-shadow: none;">
+                        <div class="navbar-form navbar-right btn-group" style="margin: 0px; padding: 0px; border: currentColor; border-image: none; box-shadow: none; ">
+
+                            <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="Return to Main Menu" href="javascript:document.location.href ='/Home'" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                <i class="fa fa-lg fa-fw fa-home"></i>
+                            </a>
+
+                            <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="Add Pickup" href="javascript:activateAddPickupButton()" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                <i class="fa fa-lg fa-fw fa-plus"></i>
+                            </a>
+
+                            <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="View Completed Pickups" href="javascript: getPickups('completed');" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                <i class="fa fa-lg fa-fw fa-check"></i>
+                            </a>
+
+                            <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="View Updated Pickups" href="javascript:ViewAllPickupUdpdates();" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                <i id="toggleViewIcon" class=" fa fa-lg fa-fw fa-eye"></i>
+                            </a>
+
+                            <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="Sound Alert When Pickup Updated" href="javascript: togleSoundAlerts();" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                <i id="toggleSoundIcon" class="fa fa-lg fa-fw fa-volume-up"></i>
+                            </a>
+
+                            <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="View Pickups on Map" href="javascript:activateViewMap('standard');" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                <i class="fa fa-lg fa-fw fa-map-marker"></i>
+                            </a>
+
+                            <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="Search Pickups" href="javascript: activateSearchButton();" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                <i class="fa fa-lg fa-fw fa-search"></i>
+                            </a>
+
+                            <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="Add Location" href="javascript: activateAddLocation();" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                <i class="fa fa-lg fa-fw fa-thumb-tack"></i>
+                            </a>
+
+                            <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="Help" href="javascript: activateHelpButton();" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                <i class="fa fa-lg fa-fw fa-question"></i>
+                            </a>
+
+
+                            @*
+                                <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="Toggle Field Labels" href="javascript: toggleFieldLabels();" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                    <i class="fa fa-lg fa-fw fa-info"></i>
+                                </a>
+
+                                
+                            *@
+
+                            @if (ViewBag.UserRole.Contains("Admin"))
+                            {
+                                <a id="userName" class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="Manage Users" href="javascript:document.location.href ='/Account/ManageUsers'" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                    <i class="fa fa-lg fa-fw fa-user"></i>
+                                </a>
+
+                            }
+                            else
+                            {
+
+                                <a id="userName" class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="Logout @ViewBag.FirstName @ViewBag.LastName" href="javascript: logUserOut();" style="padding: 5px; margin-top: 4px; margin-left: 5px">
+                                    <i class="fa fa-lg fa-fw fa-power-off"></i>
+                                </a>
+
+                            }
+
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken();
+
+                            }
+                        </div>
+
+                        @*SEARCH BAR*@
+                        <div class="navbar-form zfm-search-bar" style="display: none; border-color: darkgray transparent transparent; padding: 0; box-shadow: none; padding-top: 10px;">
+                            <div class="form-group" style="display:inline;">
+                                <div class="mybar">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lg fa-fw fa-search"></i></span>
+                                        <input id="searchFilter" type="text" placeholder="Search" class="form-control" style="max-width: 100%; width:100%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+        }
+        else if (!Request.Url.ToString().ToLower().Contains("pickup") && !Request.Url.ToString().ToLower().Contains("location"))
+        {
+            @*Welcome and Login NavBar *@
+            <div class="navbar navbar-inverse" style="margin-top: -60px">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        @{
+            if (User.Identity.IsAuthenticated)
+            {
+
+
+                        <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="Go To Pickups Manager" href="javascript:document.location.href ='/Pickup'" style="padding: 5px; margin-top: 4px; margin-left: 5px; text-decoration: none;">
+                            <i class="fa fa-lg fa-fw fa-home" style="vertical-align: -10%;"></i>
+                            Pickup Manager
+                        </a>
+
+            }
+            else
+            {
+
+
+                        <a class="btn btn-default btn-sm btn-link" data-toggle="tooltip" title="ZFM Home Page" href="javascript:document.location.href ='/Home'" style="padding: 5px; margin-top: 4px; margin-left: 5px; text-decoration: none;">
+                            ZFM - TRAK
+                        </a>
+
+
+            }
+                        }
+
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        @*<ul class="nav navbar-nav">
+                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                <li>@Html.ActionLink("About", "About", "Home")</li>
+                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            </ul>*@
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <p style="text-align: center; color: deepskyblue; font-size: small; font-family: robotoregular">Zimmer Fegan &amp; Maloney</p>
+                    <p style="text-align: center; color: darkgray; font-size: small; font-family: robotoregular">@ViewBag.FullName </p>
+
+
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bstrap")
+
+
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

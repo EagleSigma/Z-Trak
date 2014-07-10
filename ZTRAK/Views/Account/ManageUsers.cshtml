@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Manage Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="user-list-title">
+    <h3 style="margin: 0;">Manage Users</h3>
+    <h4>Locked users are not allowed to login. </h4>
+</div>
+
+<br />
+
+<div id="currentUserInfo" data-upload-list="@ViewBag.FileNames" data-userphone="@ViewBag.UserCell" data-usercellprovider="@ViewBag.UserCellProvider" data-username="@ViewBag.UserName" data-userrole="@ViewBag.UserRole" data-email="@ViewBag.UserEmail" data-fullname="@ViewBag.FullName" data-code="@ViewBag.Code" data-codeexp="@ViewBag.CodeExp" data-pincode="@ViewBag.PinNumber" data-teamname="@ViewBag.TeamName"></div>
+
+
+<div class="container-fluid">
+
+    <div class="col-xs-12" style="padding-bottom: 20px; padding-right: 0; font-size: large; font-family: robotoregular;">
+        <span>Selected (<span style="color: darkorange;" data-bind="text: viewModel.chosenUsers().length"></span>).</span>
+        <div class="input-group merged">
+            <span class="input-group-addon"><i style="font-size: large;" class="fa fa-fw fa-users"></i></span>
+            <select style="font-size: large;" class="form-control" data-bind="options: viewModel.userList, selectedOptions: viewModel.chosenUsers"></select>
+        </div>
+    </div>
+
+    <div class="col-xs-12" style="padding-left: 20px; padding-right: 0">
+
+        <div class="input-group merged">
+            <button type="submit" class="btn btn-danger" data-toggle="tooltip" title="Lock Selected User" onclick="javasript: lockUser();" style="margin-right: 10px">
+                <div>
+                    <i class="fa fa-fw fa-lock" style="vertical-align:middle"></i>
+                    <span></span>
+                </div>
+            </button>
+
+            <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Unlock Selected User" onclick="javasript: unlockUser();">
+                <div>
+                    <i class=" fa fa-fw fa-unlock" style="vertical-align:middle">
+                    </i>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-xs-12" style="padding-top: 20px; padding-right: 0; font-size: large; font-family: robotoregular;">
+        <span>Locked Users (<span style="color: darkorange;" data-bind="text: viewModel.lockedUsers().length"></span>).</span>
+
+        <ul id="itemsContainer" data-bind="foreach: viewModel.lockedUsers" class="itemHolderList">
+
+            <li>
+                @* Locked Users*@
+            
+                <div class="input-group">
+                    <span class="input-group-addon"><i style="font-size: large;" class="fa fa-fw fa-lock"></i></span>
+                    <span style="font-size: large;" class="form-control" data-bind="text: $data"> </span>
+                </div>
+
+            </li>
+
+        </ul>
+
+        
+    </div>
+
+
+
+</div>
+
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/ko")
+    @Scripts.Render("~/bundles/userm")
+
+}
+
+

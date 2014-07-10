@@ -1,0 +1,1339 @@
+﻿@{
+    ViewBag.Title = "Pickups";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<div id="currentUserInfo" data-upload-list="@ViewBag.FileNames" data-userphone="@ViewBag.UserCell" data-usercellprovider="@ViewBag.UserCellProvider" data-username="@ViewBag.UserName" data-userrole="@ViewBag.UserRole" data-email="@ViewBag.UserEmail" data-fullname="@ViewBag.FullName" data-code="@ViewBag.Code" data-codeexp="@ViewBag.CodeExp" data-pincode="@ViewBag.PinNumber" data-teamname="@ViewBag.TeamName"></div>
+
+<ul id="pickupsContainer" data-bind="template: {foreach: pickupCollection}" class="list-group noBulletsList">
+
+    @*Show Each Pickup using the correct template*@
+
+    <li data-bind="template: { name: Mode, data: $data, afterRender: doneRenderingItem }" style="margin-bottom:20px">
+
+    </li>
+
+</ul>
+
+@* #region Templates *@
+
+<script type="text/html" id="display">
+
+    <div class="panel panel-primary" style=" border: 3px solid gray;">
+        <div class="cali">
+
+            @*Pickup Number and Date Created*@
+            <div class="row">
+                <div>
+                    <span data-bind="attr: {id: 'pu' + PickupNumber() }"></span>
+                    <div class="col-xs-3"> <span class="pickup-item-headers display-pickups cali2" data-bind="text: PickupNumber" data-toggle="tooltip" title="Pickup Number" /> </div>
+                    <div class="col-xs-9"> <span class="pickup-item-headers pull-right date-field cali2" data-bind="text: Created" data-toggle="tooltip" title="Date Pickup Was Created" /> </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body" style="padding: 0;">
+
+            @* PICKUP INFO*@
+            <div class="container-fluid">
+
+                @*Location*@
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 0; padding-right: 0">
+                        <table id="table1" class=" location-name-background">
+                            <tr>
+                                <th class="field-label">
+                                    <span>START:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="location-name-title" data-toggle="tooltip" title="Location Name" data-bind="text: LocationName"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                @*Destination*@
+                <div class="row" style="border-top: 3px solid gray; border-bottom: 3px solid gray;">
+                    <div class="col-xs-12" style="padding-left: 0; padding-right: 0;">
+
+                        <table id="table1" class="destination-name-background">
+                            <tr>
+                                <th class="field-label">
+                                    <span>END:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="destination-name-title" data-toggle="tooltip" title="Destination Name" data-bind="text: Destination"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+                @*Team Name, Sales Rep and Status *@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; padding-top: 3px;">
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; ">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>TEAM NAME:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: Team" data-toggle="tooltip" title="Team Name"> </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: center;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>SALES REP:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: Rep" data-toggle="tooltip" title="Sales Rep Assigned To This Pickup"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: right;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>STATUS:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-toggle="tooltip" title="Pickup Status" data-bind="text: Status"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+                @* Surgical Coordinator, Courier and Created By*@
+                <div class="row" style="padding-left: 2px; padding-right:2px; padding-top: 3px; background-color: #f5f5f5; border-top: 2px solid darkGray">
+
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: center;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>SC:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: Manager" data-toggle="tooltip" title="Surgical Coordinator"> </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>COURIER:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-toggle="tooltip" title="Courier Assigned To This Pickup" data-bind="text: TransporterName"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: right">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>CREATED BY:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: CreatedBy" data-toggle="tooltip" title="User That Created This Pickup"> </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                </div>
+
+                @*Last Modified By, Modified Time  *@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; padding-top: 3px; border-top: 2px solid darkGray">
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>LAST EDIT BY:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: LastEditBy" data-toggle="tooltip" title="Last User That Modified This Pickup"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4 col-xs-offset-4" style="padding-left: 3px; padding-right: 3px; text-align:right;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>LAST MODIFIED:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2 date-field" data-bind="text: LastModified" data-toggle="tooltip" title="Last Time This Pickup Was Modified"> </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+                @*Notes*@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; background-color: #ffffff; border-top: 2px solid darkGray; border-bottom: 2px solid darkGray; ">
+                    <div class="col-xs-12" style="padding-left: 3px; padding-right: 3px;">
+                        <span class="notesLabel"> NOTES:</span>   <span class="pickup-item-headers-2" data-bind="text: Notes" data-toggle="tooltip" title="Team Name"> </span>
+                    </div>
+                </div>
+
+                @*ITEMS Container*@
+                <ul id="itemsContainer" data-bind="foreach: Items" class="itemHolderList">
+
+                    <li>
+                        @* QTY, DESCRIPTION, ADDED BY, DATE*@
+                        <div data-bind=" attr: {id: 'item'+ ID}">
+                            <div class="row" data-bind="css: { PhotoAvailable: Picture1() != 'none', PhotoNotAvailable: Picture1() === 'none'}" style="padding-left: 0; padding-right: 0; display: block; border-top: 1px solid black; border-bottom: 1px solid black; ">
+                                @*ADD BY*@
+                                <div class="col-xs-12" style="padding-left: 3px; padding-right: 3px;">
+
+                                    <table id="table1">
+                                        <tr>
+                                            <td style="text-align:center; max-width:100%; width:1em; overflow:visible;">
+                                                <a class="zfm-display-photo">
+                                                    <i data-bind="style: { display: Picture1() === 'none' ? 'none' : 'block' }" style="margin-right: 7px; font-size: 2em; line-height: 1.3em; padding-top:6px; " class="fa fa-lg fa-fw fa-camera"> </i>
+                                                </a>
+                                            </td>
+                                            <td style=" text-align: left; max-width:200px;">
+                                                <span> <button data-bind=" attr: {title:Picture1()}" class="zfm-display-photo"><span class="pickup-item-list" data-bind="text: AddedBy"></span>  </button></span>
+                                            </td>
+                                            <td style=" text-align: right;">
+                                                @*ADD DATE*@
+                                                <span class="date-field pickup-item-list" style="text-align: right; padding-top:4px; display: block;" data-bind="text: AddedDate"> </span>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                @*Containder end*@
+
+            </div>
+
+        </div>
+
+        <div class="panel-footer" data-bind="attr: {id: 'alert' + PickupNumber()}">
+
+
+            <div class=" btn-group">
+                <button class="btn btn-default zfm-edit" data-toggle="tooltip" title="Edit Pickup"><i class="fa fa-fw fa-pencil"></i></button>
+                <button class="btn btn-default zfm-photo" data-toggle="tooltip" title="Upload Picture"><i class="fa fa-fw fa-camera"></i></button>
+                <button class="btn btn-default btn-danger zfm-delete" data-toggle="tooltip" title="Delete Pickup"><i class="fa fa-fw fa-trash-o"></i></button>
+            </div>
+
+        </div>
+    </div>
+
+</script>
+
+<script type="text/html" id="done">
+
+    <div class="panel panel-primary" style="border: 3px solid gray;">
+        <div class="cali">
+
+            @*Pickup Number and Date Created*@
+            <div class="row">
+                <div>
+                    <span data-bind="attr: {id: 'pu' + PickupNumber() }"></span>
+                    <div class="col-xs-3"> <span class="pickup-item-headers display-pickups cali2" data-bind="text: PickupNumber" data-toggle="tooltip" title="Pickup Number" /> </div>
+                    <div class="col-xs-9"> <span class="pickup-item-headers pull-right date-field cali2" data-bind="text: Created" data-toggle="tooltip" title="Date Pickup Was Created" /> </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body" style="padding: 0;">
+
+            @* PICKUP INFO*@
+            <div class="container-fluid">
+
+                @*Location*@
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 0; padding-right: 0">
+                        <table id="table1" class=" location-name-background">
+                            <tr class="field-label">
+                                <th>
+                                    <span>START:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="location-name-title" data-toggle="tooltip" title="Location Name" data-bind="text: LocationName"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                @*Destination*@
+                <div class="row" style="border-top: 3px solid gray; border-bottom: 3px solid gray;">
+                    <div class="col-xs-12" style="padding-left: 0; padding-right: 0;">
+
+                        <table id="table1" class="destination-name-background">
+                            <tr class="field-label">
+                                <th>
+                                    <span>END:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="destination-name-title" data-toggle="tooltip" title="Destination Name" data-bind="text: Destination"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+                @*Team Name, Sales Rep and Status *@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; padding-top: 3px;">
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; ">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>TEAM NAME:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: Team" data-toggle="tooltip" title="Team Name"> </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: center;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>SALES REP:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: Rep" data-toggle="tooltip" title="Sales Rep Assigned To This Pickup"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: right;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>STATUS:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2 blink-now" data-toggle="tooltip" title="Pickup Status" data-bind="text: Status"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+                @* Surgical Coordinator, Courier and Created By*@
+                <div class="row" style="padding-left: 2px; padding-right:2px; padding-top: 3px; background-color: #f5f5f5; border-top: 2px solid darkGray">
+
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: center;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>SC:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: Manager" data-toggle="tooltip" title="Surgical Coordinator"> </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>COURIER:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-toggle="tooltip" title="Courier Assigned To This Pickup" data-bind="text: TransporterName"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: right">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>CREATED BY:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: CreatedBy" data-toggle="tooltip" title="User That Created This Pickup"> </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                </div>
+
+                @*Last Modified By, Modified Time  *@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; padding-top: 3px; border-top: 2px solid darkGray; background-color:rgba(202, 250, 234, 0.69)">
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>LAST EDIT BY:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: LastEditBy" data-toggle="tooltip" title="Last User That Modified This Pickup"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4 col-xs-offset-4" style="padding-left: 3px; padding-right: 3px; text-align:right;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>LAST MODIFIED:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2 date-field" data-bind="text: LastModified" data-toggle="tooltip" title="Last Time This Pickup Was Modified"> </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+                @*Notes*@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; background-color: #ffffff; border-top: 2px solid darkGray; border-bottom: 5px solid #f5f5f5; ">
+                    <div class="col-xs-12" style="padding-left: 3px; padding-right: 3px;">
+                        <span class="notesLabel"> NOTES:</span>   <span class="pickup-item-headers-2" data-bind="text: Notes" data-toggle="tooltip" title="Team Name"> </span>
+                    </div>
+                </div>
+
+                @*ITEMS Container*@
+                <ul id="itemsContainer" data-bind="foreach: Items" class="itemHolderList">
+
+                    <li>
+                        @* QTY, DESCRIPTION, ADDED BY, DATE*@
+                        <div data-bind=" attr: {id: 'item'+ ID}">
+                            <div class="row" data-bind="css: { PhotoAvailable: Picture1() != 'none', PhotoNotAvailable: Picture1() === 'none'}" style="padding-left: 0; padding-right: 0; display: block; border-top: 1px solid black; border-bottom: 1px solid black; ">
+                                @*ADD BY*@
+                                <div class="col-xs-12" style="padding-left: 3px; padding-right: 3px;">
+
+                                    <table id="table1">
+                                        <tr>
+                                            <td style="text-align:center;">
+                                                <a class="zfm-display-photo">
+                                                    <i data-bind="style: { display: Picture1() === 'none' ? 'none' : 'block' }" style="margin-right: 7px; font-size: 2em; line-height: 1.3em; padding-top:6px; " class="fa fa-lg fa-fw fa-camera"> </i>
+                                                </a>
+                                            </td>
+                                            <td style=" text-align: left;">
+                                                <span> <button data-bind=" attr: {title:Picture1()}" class="zfm-display-photo"><span class="pickup-item-list" data-bind="text: AddedBy"></span>  </button></span>
+                                            </td>
+                                            <td style=" text-align: right;">
+                                                @*ADD DATE*@
+                                                <span class="date-field pickup-item-list" style="text-align: right; padding-top:4px; display: block;" data-bind="text: AddedDate"> </span>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                @*Containder end*@
+
+
+
+
+            </div>
+
+            @* PICKUP INFO*@
+        </div>
+
+        <div class="panel-footer" data-bind="attr: {id: 'alert' + PickupNumber()} , style: { display: Mode() === 'done' ? 'none' : 'inline' }">
+            <div class="btn-group">
+                <button class="btn btn-default zfm-edit" data-toggle="tooltip" title="Edit Pickup"><i class="fa fa-fw fa-pencil"></i></button>
+                <button class="btn btn-default zfm-photo" data-toggle="tooltip" title="Upload Picture"><i class="fa fa-fw fa-camera"></i></button>
+                <button class="btn btn-default btn-danger zfm-delete" data-toggle="tooltip" title="Delete Pickup"><i class="fa fa-fw fa-trash-o"></i></button>
+            </div>
+
+        </div>
+    </div>
+
+</script>
+
+<script type="text/html" id="edit">
+
+    <div class="panel panel-primary">
+
+        <div data-bind="attr: {id: ID, 'data-owner': CreatedBy, 'data-team': Team, 'data-status': Status }" class="cali">
+
+            @*Pickup Number and Date Created*@
+            <div class="row">
+                <div>
+                    <span data-bind="attr: {id: 'pu' + PickupNumber() }"></span>
+                    <div class="col-xs-3"> <span class="pickup-item-headers cali2" data-bind="text: PickupNumber" /> </div>
+                    <div class="col-xs-9"> <span class="pickup-item-headers pull-right date-field cali2" data-bind="text: Created" /> </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel-body" style="padding: 0;">
+
+            @* PICKUP INFO*@
+            <div class="container-fluid">
+
+                @*Location*@
+                <div class="row">
+
+                    <div class="col-xs-12" style="padding-left: 0; padding-right: 0">
+                        <span class="location-name-background ">
+                            <input style="max-width:100%; margin: 0; padding: 0;" type="text" data-provide="typeahead" class="loc-typeahead pickup-item-loc-name zfm-input inputEdit ios" autocomplete="off" placeholder="Location Name" data-bind="value: LocationName" />
+                        </span>
+                    </div>
+                </div>
+
+                @*Destination*@
+                <div class="row" style="border-top: 2px solid darkGray">
+
+                    <div class="col-xs-12" style="padding-left: 0; padding-right: 0">
+                        <span class="destination-name-background ">
+                            <input style="max-width:100%; margin: 0; padding: 0;" type="text" data-provide="typeahead" class="des-typeahead pickup-item-loc-name zfm-input inputEdit ios" autocomplete="off" placeholder="Destination Name" data-bind="value: Destination" />
+                        </span>
+                    </div>
+                </div>
+
+                @*Team Name, Sales Rep, Status*@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; background-color: #f5f5f5;">
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; ">
+                        <input type="text" class="teams-typeahead zfm-input2 pickup-item-headers-2 ios" placeholder="Team Name" data-toggle="tooltip" title="Team Name" data-bind="value: Team" />
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+                        <input data-provide="typeahead" class=" zfm-input2 pickup-item-headers-2 rep-typeahead ios" data-bind="value: Rep" data-toggle="tooltip" title="Sales Rep Assigned To This Pickup" placeholder="Sales Rep" />
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+                        <input class="status-typeahead zfm-input2 pickup-item-headers-2 ios" data-bind="value: Status" data-toggle="tooltip" title="Pickup Status" placeholder="Pickup Status" />
+                    </div>
+                </div>
+
+                @*Surgical Coordinator, Courier and Created By*@
+                <div class="row" style="padding-left: 2px; padding-right:2px">
+
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+                        <input class="warehouse-typeahead zfm-input2 pickup-item-headers-2 ios" data-bind="value: Manager" data-toggle="tooltip" title="Surgical Coordinator" placeholder="Surgical Coordinator" />
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+                        <input type="text" class="courier-typeahead zfm-input2 pickup-item-headers-2 ios" placeholder="Courier" data-toggle="tooltip" title="Courier Assigned To This Pickup" data-bind="value: TransporterName" />
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+                        <span class="pickup-item-headers-2" data-bind="text: CreatedBy" data-toggle="tooltip" title="User That Created This Pickup"> </span>
+                    </div>
+                </div>
+
+                @*Last Modified By, Modified Time  *@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; border-top: 2px solid darkGray">
+                    <div class="col-xs-6" style="padding-left: 3px; padding-right: 3px;">
+                        <span class="pickup-item-headers-2" data-bind="text: LastEditBy" data-toggle="tooltip" title="Last User That Modified This Pickup"></span>
+                    </div>
+                    <div class="col-xs-6" style="padding-left: 3px; padding-right: 3px; text-align:right;">
+                        <span class="pickup-item-headers-2 date-field" data-bind="text: LastModified" data-toggle="tooltip" title="Last Time This Pickup Was Modified"> </span>
+                    </div>
+                </div>
+
+
+                @*Notes*@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; padding-top: 5px; background-color: #f5f5f5; border-top: 2px solid darkGray; border-bottom: 5px solid #f5f5f5; ">
+                    <div class="col-xs-12" style="padding-left: 3px; padding-right: 3px;">
+                        <textarea id="zfmNotes" class="notes-typeahead ios" placeholder="Notes" data-toggle="tooltip" title="Notes For This Pickup" data-bind="value: Notes"> </textarea>
+                    </div>
+                </div>
+
+
+                @*ITEMS Container*@
+                <ul id="itemsContainer" data-bind="foreach: Items" class="itemHolderList">
+                    <li>
+                        @* QTY, DESCRIPTION, REMOVE*@
+                        <div data-bind=" attr: {id: 'item'+ ID}">
+                            <div class="row" data-bind="css: { PhotoAvailable: Picture1() != 'none', PhotoNotAvailable: Picture1() === 'none'}" style="padding-left: 0; padding-right: 0; display: block; border-top: 1px solid black; border-bottom: 1px solid black; ">
+                                @*ADD BY*@
+                                <div class="col-xs-8" style="padding-left: 3px; padding-right: 3px;">
+                                    <span> <button data-bind=" attr: {title:Picture1()}" class="zfm-display-photo"><i data-bind="style: { display: Picture1() === 'none' ? 'none' : 'inline' }" style="margin-right: 7px; display: inline; font-size: 2em; line-height: 1.3em; padding-top:3px; " class="fa fa-lg fa-fw fa-camera"> </i> <span class="pickup-item-list" data-bind="text: AddedBy"></span>  </button></span>
+                                </div>
+                                @*ADD DATE*@
+                                <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: right;">
+                                    <span class="date-field pickup-item-list" style="text-align: left" data-bind="text: AddedDate"> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                @*Containder end*@
+
+            </div>
+
+            <div class="panel-footer">
+
+                <div class="btn-group">
+                    <button class="btn btn-default btn-success zfm-update" data-toggle="tooltip" title="Update Pickup"><i class="fa fa-fw fa-save"></i></button>
+                    <button class="btn btn-default zfm-cancel" data-toggle="tooltip" title="Cancel Changes or New Pickup"><i class="fa fa-fw fa-thumbs-o-down"></i></button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</script>
+
+<script type="text/html" id="editAdmin">
+
+    <div class="panel panel-primary">
+
+        <div data-bind="attr: {id: ID, 'data-owner': CreatedBy, 'data-team': Team, 'data-status': Status }" class="cali">
+
+            @*Pickup Number and Date Created*@
+            <div class="row">
+                <div>
+                    <span data-bind="attr: {id: 'pu' + PickupNumber() }"></span>
+                    <div class="col-xs-3"> <span class="pickup-item-headers cali2" data-bind="text: PickupNumber" /> </div>
+                    <div class="col-xs-9"> <span class="pickup-item-headers pull-right date-field cali2" data-bind="text: Created" /> </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel-body" style="padding: 0;">
+
+            @*PICKUP INFO*@
+            <div class="container-fluid">
+
+                @*Location*@
+                <div class="row">
+
+                    <div class="col-xs-12" style="padding-left: 0; padding-right: 0">
+                        <span class="location-name-background ">
+                            <input style="max-width:100%; margin: 0; padding: 0;" type="text" data-provide="typeahead" class="loc-typeahead pickup-item-loc-name zfm-input inputEdit ios" autocomplete="off" placeholder="START" data-bind="value: LocationName" />
+                        </span>
+                    </div>
+                </div>
+
+                @*Destination*@
+                <div class="row" style="border-top: 2px solid darkGray">
+
+                    <div class="col-xs-12" style="padding-left: 0; padding-right: 0">
+                        <span class="location-name-background ">
+                            <input style="max-width:100%; margin: 0; padding: 0;" type="text" data-provide="typeahead" class="des-typeahead pickup-item-loc-name zfm-input inputEdit ios" autocomplete="off" placeholder="END" data-bind="value: Destination" />
+                        </span>
+                    </div>
+                </div>
+
+                @*Team Name, Sales Rep, Status *@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; background-color: #f5f5f5;">
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; ">
+                        <input type="text" class="teams-typeahead zfm-input2 pickup-item-headers-2 ios" placeholder="Team Name" data-toggle="tooltip" title="Team Name" data-bind="value: Team" />
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+                        <input data-provide="typeahead" class=" zfm-input2 pickup-item-headers-2 rep-typeahead ios" data-bind="value: Rep" data-toggle="tooltip" title="Sales Rep Assigned To This Pickup" placeholder="Sales Rep" />
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+                        <input class="status-typeahead zfm-input2 pickup-item-headers-2 ios" data-bind="value: Status" data-toggle="tooltip" title="Pickup Status" placeholder="Pickup Status" />
+                    </div>
+                </div>
+
+                @* Surgical Coordinator, Courier, and Created By*@
+                <div class="row" style="padding-left: 2px; padding-right:2px">
+
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+                        <input class="warehouse-typeahead zfm-input2 pickup-item-headers-2 ios" data-bind="value: Manager" data-toggle="tooltip" title="Surgical Coordinator" placeholder="Surgical Coordinator" />
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+                        <input type="text" class="courier-typeahead zfm-input2 pickup-item-headers-2 ios" placeholder="Courier" data-toggle="tooltip" title="Courier Assigned To This Pickup" data-bind="value: TransporterName" />
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+                        <span class="pickup-item-headers-2" data-bind="text: CreatedBy" data-toggle="tooltip" title="User That Created This Pickup"> </span>
+                    </div>
+                </div>
+
+                @*Last Modified By, Modified Time*@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; border-top: 2px solid darkGray">
+                    <div class="col-xs-6" style="padding-left: 3px; padding-right: 3px;">
+                        <span class="pickup-item-headers-2" data-bind="text: LastEditBy" data-toggle="tooltip" title="Last User That Modified This Pickup"></span>
+                    </div>
+                    <div class="col-xs-6" style="padding-left: 3px; padding-right: 3px; text-align:right;">
+                        <span class="pickup-item-headers-2 date-field" data-bind="text: LastModified" data-toggle="tooltip" title="Last Time This Pickup Was Modified"> </span>
+                    </div>
+                </div>
+
+
+                @*Notes*@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; padding-top: 5px; background-color: #f5f5f5; border-top: 2px solid darkGray; border-bottom: 5px solid #f5f5f5; ">
+                    <div class="col-xs-12" style="padding-left: 3px; padding-right: 3px;">
+                        <textarea id="zfmNotes" class="notes-typeahead ios" placeholder="Notes" data-toggle="tooltip" title="Notes For This Pickup" data-bind="value: Notes" />
+                    </div>
+                </div>
+
+
+                @*ITEMS Container*@
+                <ul id="itemsContainer" data-bind="foreach: Items" class="itemHolderList">
+
+                    <li>
+                        @* QTY, DESCRIPTION, ADDED BY, DATE*@
+                        <div data-bind=" attr: {id: 'item'+ ID}">
+                            <div class="row" data-bind="css: { PhotoAvailable: Picture1() != 'none', PhotoNotAvailable: Picture1() === 'none'}" style="padding-left: 0; padding-right: 0; display: block; border-top: 1px solid black; border-bottom: 1px solid black; ">
+                                @*ADD BY*@
+                                <div class="col-xs-8" style="padding-left: 3px; padding-right: 3px;">
+                                    <span> <button data-bind=" attr: {title:Picture1()}" class="zfm-display-photo"><i data-bind="style: { display: Picture1() === 'none' ? 'none' : 'inline' }" style="margin-right: 7px; display: inline; font-size: 2em; line-height: 1.3em; padding-top:3px; " class="fa fa-lg fa-fw fa-camera"> </i> <span class="pickup-item-list" data-bind="text: AddedBy"></span>  </button></span>
+                                </div>
+                                @*ADD DATE*@
+                                <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: right;">
+                                    <span class="date-field pickup-item-list" style="text-align: left" data-bind="text: AddedDate"> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                @*Containder end*@
+
+            </div>
+
+
+            <div class="panel-footer">
+
+                <div class="btn-group">
+                    <button class="btn btn-default btn-success zfm-update" data-toggle="tooltip" title="Update Pickup"><i class="fa fa-fw fa-save"></i></button>
+                    <button class="btn btn-default zfm-cancel" data-toggle="tooltip" title="Cancel Changes or New Pickup"><i class="fa fa-fw fa-thumbs-o-down"></i></button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</script>
+
+<script type="text/html" id="photo">
+
+    <div class="panel panel-primary">
+        <div class="cali">
+
+            @*Pickup Number and Date Created*@
+            <div class="row">
+                <div>
+                    <span data-bind="attr: {id: 'pu' + PickupNumber() }"></span>
+                    <div class="col-xs-3"> <span class="pickup-item-headers display-pickups cali2" data-bind="text: PickupNumber" data-toggle="tooltip" title="Pickup Number" /> </div>
+                    <div class="col-xs-9"> <span class="pickup-item-headers pull-right date-field cali2" data-bind="text: Created" data-toggle="tooltip" title="Date Pickup Was Created" /> </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body" style="padding: 0;">
+
+            @* PICKUP INFO*@
+            <div class="container-fluid">
+
+                @*Location*@
+                <div class="row">
+                    <div class="col-xs-12" style="padding-left: 0; padding-right: 0">
+                        <table id="table1" class=" location-name-background">
+                            <tr class="field-label">
+                                <th>
+                                    <span>START:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="location-name-title" data-toggle="tooltip" title="Location Name" data-bind="text: LocationName"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                @*Destination*@
+                <div class="row" style=" border-top: 2px solid Gray; border-bottom: 2px solid darkGray">
+                    <div class="col-xs-12" style="padding-left: 0; padding-right: 0;">
+
+                        <table id="table1" class="destination-name-background">
+                            <tr class="field-label">
+                                <th>
+                                    <span>END:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 5px;">
+                                    <span class="destination-name-title" data-toggle="tooltip" title="Destination Name" data-bind="text: Destination"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+                @*Team Name, Sales Rep and Status *@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; padding-top: 3px;">
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; ">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>TEAM NAME:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: Team" data-toggle="tooltip" title="Team Name"> </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: center;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>SALES REP:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: Rep" data-toggle="tooltip" title="Sales Rep Assigned To This Pickup"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: right;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>STATUS:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-toggle="tooltip" title="Pickup Status" data-bind="text: Status"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+                @* Surgical Coordinator, Courier and Created By*@
+                <div class="row" style="padding-left: 2px; padding-right:2px; padding-top: 3px; background-color: #f5f5f5; border-top: 2px solid darkGray">
+
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: center;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>SC:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: Manager" data-toggle="tooltip" title="Surgical Coordinator"> </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>COURIER:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-toggle="tooltip" title="Courier Assigned To This Pickup" data-bind="text: TransporterName"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 3px; padding-right: 3px; text-align: right">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>CREATED BY:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: CreatedBy" data-toggle="tooltip" title="User That Created This Pickup"> </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                </div>
+
+                @*Last Modified By, Modified Time  *@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; padding-top: 3px; border-top: 2px solid darkGray">
+                    <div class="col-xs-5" style="padding-left: 3px; padding-right: 3px;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>LAST EDIT BY:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2" data-bind="text: LastEditBy" data-toggle="tooltip" title="Last User That Modified This Pickup"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-xs-4 col-xs-offset-3" style="padding-left: 3px; padding-right: 3px; text-align:right;">
+
+                        <table id="table1">
+                            <tr class="field-label">
+                                <th class="field-header">
+                                    <span>LAST MODIFIED:</span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 3px;">
+                                    <span class="pickup-item-headers-2 date-field" data-bind="text: LastModified" data-toggle="tooltip" title="Last Time This Pickup Was Modified"> </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+                @*Notes*@
+                <div class="row" style="padding-left: 2px; padding-right: 2px; background-color: #f5f5f5; border-top: 2px solid darkGray; border-bottom: 5px solid #f5f5f5; ">
+                    <div class="col-xs-12" style="padding-left: 3px; padding-right: 3px;">
+                        <span class="notesLabel"> NOTES:</span>   <span class="pickup-item-headers-2" data-bind="text: Notes" data-toggle="tooltip" title="Team Name"> </span>
+                    </div>
+                </div>
+
+                @*ITEMS Container*@
+                <form id="photos" role="form" action="/Pickup/Files" enctype="multipart/form-data" method="post">
+                    <ul id="itemsContainer" data-bind="foreach: Items" class="itemHolderList">
+                        <li>
+                            @* QTY, DESCRIPTION, ADDED BY, DATE*@
+                            <div data-bind=" attr: {id: 'item'+ PickupReff}">
+                                <div class="row" data-bind="css: { PhotoAvailable: Picture1() != 'none', PhotoNotAvailable: Picture1() === 'none'}" style="padding-left: 0; padding-right: 0; display: block; border-top: 1px solid black; border-bottom: 1px solid black; ">
+                                    @*DESC*@
+                                    <div class="col-xs-12" style="padding-left: 3px; padding-right: 3px;">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <span> <button type="button" data-bind=" attr: {title:Picture1()}" class="zfm-display-photo"><i data-bind="style: { display: Picture1() === 'none' ? 'none' : 'inline' }" style="margin-right: 7px; display: inline; font-size: 2.5em; line-height:1.2em;" class="fa fa-fw fa-camera"> </i> @*<span data-bind="text: Description"></span>*@  </button></span>
+                                                </td>
+                                                <td style="width: 100px; max-width: 100%;">
+                                                    <div>
+                                                        <label id="uploadLabel">
+                                                            <input name="files" type="file" class="zfm-input2 zfm-uploads" />
+                                                            Upload Photo
+                                                        </label>
+                                                        <input name="PickupNumber" type="hidden" data-bind="value: PickupReff" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+                @*Containder end*@
+            </div>
+            @* PICKUP INFO*@
+        </div>
+
+        <div class="panel-footer" data-bind="attr: {id: 'alert' + PickupNumber()}">
+
+            <div class=" btn-group">
+                <button class="btn btn-default btn-success zfm-send-photo" data-toggle="tooltip" title="Save Photos"><i class="fa fa-fw fa-save"></i></button>
+                <button class="btn btn-default zfm-addPhoto" data-toggle="tooltip" title="Add Photo"><i class="fa fa-fw fa-plus"></i></button>
+                <button class="btn btn-default zfm-cancel" data-toggle="tooltip" title="Cancel Photo Upload"><i class="fa fa-fw fa-thumbs-o-down"></i></button>
+            </div>
+
+        </div>
+    </div>
+
+</script>
+
+@* Modals *@
+<div class="modal fade bs-example-modal-lg" id="picModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding-top: 5px; padding-bottom: 5px;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Pickup #: </h4>
+            </div>
+            <div class="modal-body" style="padding: 0; overflow:scroll">
+                <img id="imgView" class="photoScale" />
+            </div>
+            <div class="modal-footer" style="text-align: center; padding-top: 5px; padding-bottom: 5px;">
+                <button type="button" data-toggle="tooltip" title="ROTATE IMAGE" class="btn btn-primary btn-rotate-photo"> <i class="fa fa-fw fa-share"></i> </button>
+                <button type="button" data-toggle="tooltip" title="DISMISS IMAGE" class="btn  btn-success" data-dismiss="modal"> <i class="fa fa-fw fa-check"></i> </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="photoUpload">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h3 class="modal-title" id="myModalLabel">UPLOADING<span id="numberOfpics" style='color: orangered;'></span> <span id="singleOrmore"></span> </h3>
+
+            </div>
+            <div class="modal-body">
+
+                <h3>
+                    <span style='color: black;'>DATA SIZE: </span> <span id="photoUploadSize" style='color: orangered; text-align: center;'>  </span>
+                </h3>
+                <div class='progress progress-striped active'>
+                    <div id='uploadProgress' class='progress-bar' role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' style='width: 0; font-size: large; font-family: robotoregular;'>0</div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <h3 class="pull-left">INTERNET SPEED: <span id="photoUploadSpeed" style='color: orangered;'></span></h3>
+
+            </div>
+        </div> @*modal-content*@
+    </div> @*modal-dialog*@
+</div>
+
+<div class="modal fade" id="mapView">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 0;">
+                <h4 class="modal-title" id="myModalLabel" style="padding-top:5px;  text-align: center; font-weight: 600; ">MAP VIEW (<span class='pickup-count-map' style='color: orangered; font-size: medium; font-weight: normal'></span>) <span id="singleOrmore"></span> </h4>
+            </div>
+            <div class="modal-body map-view-body" style="padding:0;">
+                <div id="mapDiv" style="background-color: #85ecbf;"></div>
+            </div>
+            <div class="modal-footer" style="padding: 0; padding-bottom: 5px; padding-right: 10px;">
+                <button id="show-traffic" type="button" data-toggle="tooltip" title="SHOW TRAFFIC" class="traffic-show btn btn-info btn-rotate-photo"> <i class="fa fa-flip-horizontal fa-fw fa-truck"></i> </button>
+                <button id="update-map" type="button" data-toggle="tooltip" title="UPDATE MAP" class="btn btn-primary btn-rotate-photo"> <i class="map-update fa fa-fw fa-eye"></i> </button>
+                <button type="button" data-toggle="tooltip" title="DISMISS" class="btn  btn-danger" data-dismiss="modal"> <i class="fa fa-fw fa-level-down"></i> </button>
+            </div>
+        </div> @*modal-content*@
+    </div> @*modal-dialog*@
+</div>
+
+<div class="modal fade" id="addLocation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 0;">
+                <h4 class="modal-title" id="myModalLabel" style="padding-top:5px;  text-align: center; font-weight: 600; ">Add Location <span id="numberOfPickups" style='color: orangered;'></span> <span id="singleOrmore"></span> </h4>
+            </div>
+            ` <div class="modal-body" style="padding:0; margin-top: -19px; margin-bottom: -15px;">
+
+                <div class="container-fluid" style="padding-top: 0; padding-bottom: 0;">
+
+                    @*Location*@
+                    <div class="row">
+
+                        <div class="col-xs-12" style="padding-left: 5px; padding-right:5px">
+                            <span class="location-name-background ">
+                                <input id="loc-gps-name" style="max-width:100%; text-align:left; margin: 0; padding: 0; padding-left: 5px; font-weight: normal; font-family: robotoregular" type="text" class="zfm-input inputEdit ios" placeholder="Location Name" />
+                            </span>
+                        </div>
+                    </div>
+
+                    @*Address*@
+                    <div class="row" style="border-top: 2px solid darkGray">
+
+                        <div class="col-xs-12" style="padding-left: 5px; padding-right:5px">
+                            <span class="location-name-background ">
+                                <input id="address-gps" style="max-width: 100%; text-align: left; margin: 0; padding: 0; padding-left: 5px;font-weight: normal; font-family: robotoregular" type="text" class="zfm-input inputEdit ios" placeholder="Address" />
+                            </span>
+                        </div>
+                    </div>
+
+                    @*City, State and State*@
+                    <div class="row" style="padding-left: 5px; padding-right:5px">
+
+                        <div class="col-xs-7" style="padding-left: 0; padding-right:3px">
+                            <input id="city-gps" class=" zfm-input2 pickup-item-headers-2 ios" data-toggle="tooltip" title="City" placeholder="City" />
+                        </div>
+                        <div class="col-xs-3" style="padding-left: 0; padding-right:3px">
+                            <input id="state-gps" class="zfm-input2 pickup-item-headers-2 ios" data-toggle="tooltip" title="State" placeholder="State" />
+                        </div>
+                        <div class="col-xs-2" style="padding-left: 0; padding-right:0">
+                            <input id="zip-gps" class="zfm-input2 pickup-item-headers-2 ios" data-toggle="tooltip" title="Zip" placeholder="Zip" />
+                        </div>
+                    </div>
+
+                    @*MAP*@
+                    <div class="row" style="padding-left: 2px; padding-right: 2px; padding-top: 5px; background-color: #f5f5f5; border-top: 2px solid darkGray; border-bottom: 5px solid #f5f5f5; ">
+                        <div id="myMap" style="background-color: #85ecbf; height: 300px; position:relative;"></div>
+                        <div id="output"></div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer" style="padding: 0; padding-bottom: 5px; padding-right: 10px;">
+                <button type="button" data-toggle="tooltip" title="GET GPS FOR CURRENT LOCATION" class="btn btn-info find-gps"> <i class="fa fa-fw fa-search"></i> </button>
+                <button type="button" data-toggle="tooltip" title="SAVE" class="btn  btn-success save-gps"> <i class="fa fa-fw fa-save"></i> </button>
+                <button type="button" data-toggle="tooltip" title="DISMISS" class="btn btn-danger dismiss-gps" data-dismiss="modal"> <i class="fa fa-fw fa-level-down"></i> </button>
+            </div>
+
+        </div> @*modal-content*@
+    </div> @*modal-dialog*@
+</div>
+
+<div class="modal fade" id="techSupport">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 0; background-color: lightblue;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                <h4 class="modal-title" id="myModalLabel" style="padding-top:5px;  text-align: center; font-weight: 600; ">Help Page</h4>
+            </div>
+            ` <div class="modal-body" style="padding:0; margin-top: -19px; margin-bottom: -15px;">
+
+                
+
+                  <ul class="itemHolderList">
+
+                      <li>
+                          @* Refresh *@
+                          <div class="input-group">
+                              <span class="input-group-addon"><i style="font-size: large;" class="fa fa-fw fa-refresh"></i></span>
+                              <span style="font-size: large;" class="form-control">
+                                Show Latest Pickups/Updates
+                              </span>
+                          </div>
+                      </li>
+
+
+                      <li>
+                          @* Home *@
+                          <div class="input-group">
+                              <span class="input-group-addon"><i style="font-size: large;" class="fa fa-fw fa-home"></i></span>
+                              <span style="font-size: large;" class="form-control">
+                                  Login/Logout, Register, or Tech Support
+                              </span>
+                          </div>
+                      </li>
+
+
+                      <li>
+                          @* Add Pickup *@
+                          <div class="input-group">
+                              <span class="input-group-addon"><i style="font-size: large;" class="fa fa-fw fa-plus"></i></span>
+                              <span style="font-size: large;" class="form-control">
+                                  Add Pickup
+                              </span>
+                          </div>
+                      </li>
+
+                      <li>
+                          @* View Completed Pickups *@
+                          <div class="input-group">
+                              <span class="input-group-addon"><i style="font-size: large;" class="fa fa-fw fa-check"></i></span>
+                              <span style="font-size: large;" class="form-control">
+                                  Show Completed Pickups 
+                              </span>
+                          </div>
+                      </li>
+
+
+                      <li>
+                          @* View Live Updates*@
+                          <div class="input-group">
+                              <span class="input-group-addon"><i style="font-size: large;" class="fa fa-fw fa-eye"></i></span>
+                              <span style="font-size: large;" class="form-control">
+                                  Turn On/Off Real Time Updates
+                              </span>
+                          </div>
+                      </li>
+
+                      <li>
+                          @* Activate Sound*@
+                          <div class="input-group">
+                              <span class="input-group-addon"><i style="font-size: large;" class="fa fa-fw fa-volume-up"></i></span>
+                              <span style="font-size: large;" class="form-control">
+                                  Turn On/Off Sound Alerts
+                              </span>
+                          </div>
+                      </li>
+
+                      <li>
+                          @* View Map *@
+                          <div class="input-group">
+                              <span class="input-group-addon"><i style="font-size: large;" class="fa fa-fw fa-map-marker"></i></span>
+                              <span style="font-size: large;" class="form-control">
+                                  View Pickups On Map
+                              </span>
+                          </div>
+                      </li>
+
+                      <li>
+                          @* Search *@
+                          <div class="input-group">
+                              <span class="input-group-addon"><i style="font-size: large;" class="fa fa-fw fa-search"></i></span>
+                              <span style="font-size: large;" class="form-control">
+                                  Search Pending Or Completed Pickups
+                              </span>
+                          </div>
+                      </li>
+
+                      <li>
+                          @* Add Location*@
+                          <div class="input-group">
+                              <span class="input-group-addon btn btn-primary"><i style="font-size: large;" class="fa fa-fw fa-thumb-tack"></i></span>
+                              <span style="font-size: large;" class="form-control">
+                                  Add New Location To Be Shown On The Map
+                              </span>
+                          </div>
+                      </li>
+
+
+
+                      <li>
+                          @* User Control *@
+                          <div class="input-group">
+                              <span class="input-group-addon"><i style="font-size: large;" class="fa fa-fw fa-user"></i></span>
+                              <span style="font-size: large;" class="form-control">
+                                  Admin. User Management
+                              </span>
+                          </div>
+                      </li>
+
+                      <li>
+                          @* Logout *@
+                          <div class="input-group">
+                              <span class="input-group-addon"><i style="font-size: large;" class="fa fa-fw fa-power-off"></i></span>
+                              <span style="font-size: large;" class="form-control">
+                                  User Logout
+                              </span>
+                          </div>
+                      </li>
+
+                  </ul>
+                                   
+            </div>
+            <div class="modal-footer" style="padding: 0; padding-bottom: 10px; padding-top:10px; padding-right: 10px;">
+                <button type="button" data-toggle="tooltip" title="DISMISS" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-fw fa-level-down"></i> </button>
+            </div>
+
+        </div> @*modal-content*@
+    </div> @*modal-dialog*@
+</div>
+
+@*modals*@
+
+@*Scripts Section*@
+@section scripts{
+
+    @*Script references. *@
+    @*The jQuery library is required and is referenced by default in _Layout.cshtml. *@
+    @*Reference the SignalR library. *@
+    <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
+    @*Reference the autogenerated SignalR hub script. *@
+    <script src="~/signalr/hubs"></script>
+    @*MAP Control*@
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+
+    @Scripts.Render("~/bundles/ko")
+    @Scripts.Render("~/bundles/zfm")
+
+
+}

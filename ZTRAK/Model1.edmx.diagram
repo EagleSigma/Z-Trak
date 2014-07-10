@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="55fb5c39699d49c3977e7d868b28898f" Name="Diagram1" ZoomLevel="76">
+        <EntityTypeShape EntityType="ZtrakModel.gpsData" Width="1.5" PointX="11.125" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZtrakModel.GraphicsLog" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZtrakModel.Item" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZtrakModel.Location" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZtrakModel.MobileCarrier" Width="1.5" PointX="9.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZtrakModel.Pickup" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZtrakModel.Team" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZtrakModel.Transporter" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZtrakModel.AccessLog" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ZtrakModel.AspNetUser" Width="1.5" PointX="7.375" PointY="7.75" />
+        <EntityTypeShape EntityType="ZtrakModel.AspNetRole" Width="1.5" PointX="11.875" PointY="7.75" />
+        <EntityTypeShape EntityType="ZtrakModel.AspNetUserLogin" Width="1.875" PointX="9.375" PointY="10" />
+        <EntityTypeShape EntityType="ZtrakModel.AspNetUserRole" Width="1.5" PointX="9.375" PointY="7.75" />
+        <AssociationConnector Association="ZtrakModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" />
+        <AssociationConnector Association="ZtrakModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="ZtrakModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="ZtrakModel.PickupItem" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

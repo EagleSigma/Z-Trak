@@ -1,0 +1,96 @@
+﻿
+ASP.NET Simple Authentication using Server
+
+As of MVC 5 all you need to do is make sure the database is connected and then register a user and all the tables will be created
+in one shot.  Follow the IdentityUser (Models)  to extend  and add fields as needed to the user tabel
+
+In order to add new fields to the authentication processs, you first add them to the account model and the IdentityUser class and then 
+Framework will add them to the table using the Add Migration Process.
+
+
+
+Connecting to Database
+
+1. Replace the default string with the connection string of the hosting service.
+2. Load the latest version of Entity Framework
+3. Register a test user and this will create all the tables needed
+
+
+// Example Connection string
+//
+	<connectionStrings>
+    <!--<add name="DefaultConnection" connectionString="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-ZFM-Trak-20131108062704.mdf;Initial Catalog=aspnet-ZFM-Trak-20131108062704;Integrated Security=True" providerName="System.Data.SqlClient"/>-->
+    <add name="DefaultConnection" connectionString="Data Source=tcp:sql2k1201.discountasp.net;Initial Catalog=SQL2012_930075_ztrak;User ID=SQL2012_930075_ztrak_user;Password=delta#1; " providerName="System.Data.SqlClient" />
+    <add name="SQL2012_930075_ztrakEntities" connectionString="metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=tcp:sql2k1201.discountasp.net;initial catalog=SQL2012_930075_ztrak;user id=SQL2012_930075_ztrak_user;password=delta#1;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="ZtrakEntities" connectionString="metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=tcp:sql2k1201.discountasp.net;initial catalog=SQL2012_930075_ztrak;user id=SQL2012_930075_ztrak_user;password=delta#1;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+	</connectionStrings>
+
+- The key is the "DefaultConnection" because that's the one that connects to the SQL server.  The other entries are created when Entity Framework is used.
+
+Extend the User Table to include additional Fields
+
+1. Add all the fields you need to the following class public class ApplicationUser : IdentityUser
+
+2. After you add all the fields run the Code First Migration Update from the Package Manager Console
+
+Add-Migration UserUpdate1
+and then,
+Update-Database
+
+This will update the table correctly and it won't give you any error messages.
+
+
+
+Libraries
+
+Enable Automatic Nuget Library Download so that when you load the project on another computer all the libraries will be automaticaly downloaded
+..
+
+
+Multiple Seletion Boxes on the Page
+
+The VideModel and the View have a Roles selection Listbox thatc an handle multiple selections
+The key was to use a string array for the selected items and an Enumerable for the List. Also the 
+validation is for the string or interger array that holds the selected choices.  The Enumerable list simple holds the values and no validation is needed.
+The account controller also has commented code that needs to be placed back in order for the View to show the correct values.
+
+
+
+Handle JSON Dates on the database
+
+In order to handle the dates properly using json, two classes weere added to the controller in order to be able to use the
+JSON.NET engine.
+
+The default Microsoft JSON  engine worked fine but it doesn't format the dates properly.  Also, when you see the "\" character when in
+debug mode it doesn't mean it will be included in the final json result. they are escape characters.
+
+
+
+type ahead code - not used becase of bindings with knockout 
+
+  // query string for Controller data  
+	    //
+	    var query = "-" + "location";
+        
+	    // Get the data 
+	    //
+	    var loc = new Bloodhound({
+	        datumTokenizer: function (d) { return Bloodhound.tokenizers.whitespace(d.myresult); },
+	        queryTokenizer: Bloodhound.tokenizers.whitespace,
+	        prefetch: '/Pickup/SearchAgent/?search=' + query,
+            ttl: 360000
+	    });
+
+        // Initilize Engine
+        //
+	    loc.initialize();
+
+
+	    // Attach it to the input
+        //
+        $('.loc-typeahead').typeahead(null, {
+            displayKey: 'myresult',
+            source: loc.ttAdapter()
+	        
+	    });
+
