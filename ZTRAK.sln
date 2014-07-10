@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30324.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZTRAK", "ZTRAK\ZTRAK.csproj", "{AFCEABB6-0B5D-48A1-85AE-F9857F94CE23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{8B4DA7D3-3F13-4039-A80D-061527EC630F}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebAppPublishModule.psm1 = PublishScripts\AzureWebAppPublishModule.psm1
+		PublishScripts\Publish-WebApplication.ps1 = PublishScripts\Publish-WebApplication.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{AD6A236D-C697-46A2-A0B8-E48096F58FA9}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\ZTRAK-WAWS-dev.json = PublishScripts\Configurations\ZTRAK-WAWS-dev.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BBF545BA-34A7-4800-A33F-891C8C2E27AA}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A1170A27-37AE-4522-A727-97CDE50EA4A6}"
+	ProjectSection(SolutionItems) = preProject
+		WebEssentials-Settings.json = WebEssentials-Settings.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFCEABB6-0B5D-48A1-85AE-F9857F94CE23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFCEABB6-0B5D-48A1-85AE-F9857F94CE23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFCEABB6-0B5D-48A1-85AE-F9857F94CE23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFCEABB6-0B5D-48A1-85AE-F9857F94CE23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AD6A236D-C697-46A2-A0B8-E48096F58FA9} = {8B4DA7D3-3F13-4039-A80D-061527EC630F}
+	EndGlobalSection
+EndGlobal
